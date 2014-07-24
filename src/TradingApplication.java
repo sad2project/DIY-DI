@@ -13,10 +13,8 @@ public class TradingApplication extends ApplicationWrapper
 		String symbol = args[1];
 		BigDecimal quantity = new BigDecimal(args[2]);
 		BigDecimal commission = new BigDecimal(args[3]);
-		Trade trade = new Trade();
-		trade.setSymbol(symbol);
-		trade.setQuantity(quantity);
-		BookingService.buy(customerAccount, trade, commission);
+		Trade trade = new Trade(symbol, quantity);
+		new BookingService().buy(customerAccount, trade, commission);
 	}
 	
 }

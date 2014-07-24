@@ -1,15 +1,20 @@
-Step 2 Principle: Value Objects
-+ Separate service objects from value objects
-+ Value objects...
-  + hold state
-  + are easy to create in tests
-+ Service objects...
-  + perform work
-  + are harder to fake in tests
+Step 3 Principle: Constructor Injection
++ The best way to acquire dependencies is through constructor injection
++ The just means creating constructor parameters for all required objects
++ Objects won't give errors of behave differently because of missing dependencies
++ Tests can easily substitute test doubles
++ Avoid static methods and the "new" operator
   
-Code changes: Move Trade Services
-+ Many objects in the system are going to pass around Trade objects
-+ Trades depend on market prices and accounts
-+ Tests would be easier to write if those dependencies didn't need to be mocked
-+ The "buy" method should be moved out
-+ The resulting class in a simple value object
+Code changes: Add Trade Constructor
++ The Trade class is not immediately usable when it is created
++ This could result in guess-and-check programming while clients figure out
+which methods are necessary to make it viable
++ Trade objects would be even easier to handle if they were immutable
+
+Code changes: Add BookingServiceParameters
++ The BookingService calls static methods in the MarketClient and Account classes
++ These dependencies make testing difficult because tests cannot substitute their
+own implementations
++ A constructor should be added for tests
++ For product code, another constructor can be added that retains the production
+bindings

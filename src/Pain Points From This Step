@@ -1,8 +1,9 @@
-Pain Points to address in Step 3:
+Pain Points to address in Step 4:
 
-"How do I mock a static method?"
+"We would have tested that class if the constructor didn't always throw an
+exception."
 
-"When I modify static variables in my tests, I sometimes start seeing 
-unpredictable failures."
+"The test 'setUp' methods are hard to write because we have to fake so many
+objects in the environment"
 
-"Did I call all the setters I need to so I can use this object?"
+"How do you guarantee that the 'init' method gets called for your object?"

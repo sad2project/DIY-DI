@@ -4,13 +4,25 @@ import external.Account;
 
 public class BookingService
 {
-	public static void buy(Account customerAccount, Trade trade, BigDecimal commission)
+	private final MarketClient market;
+	private final Account firmAccount;
+	
+	BookingService(MarketClient market, Account firmAccount)
 	{
-		MarketClient market = MarketClient.getInstance();
+		this.market = market;
+		this.firmAccount = firmAccount;
+	}
+	
+	public BookingService()
+	{
+		this(MarketClient.getInstance(), Account.getFirmAccount());
+	}
+	
+	public void buy(Account customerAccount, Trade trade, BigDecimal commission)
+	{
 		BigDecimal price = market.getPrice(trade.getSymbol());
 		BigDecimal marketValue = price.multiply(trade.getQuantity());
 		BigDecimal settlementAmount = marketValue.add(commission);
-		Account firmAccount = Account.getFirmAccount();
 		customerAccount.transferCash(settlementAmount, firmAccount);
 		firmAccount.transferSecurity(trade.getSymbol(), trade.getQuantity(), customerAccount);
 	}
