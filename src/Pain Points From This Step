@@ -1,0 +1,7 @@
+Pain Points to address in Step 2:
+
+"That code to create fake Trade objects is repeated in enough places that we 
+should put it in a testing library."
+
+"The three - well, actually four - things that this object is responsible for 
+are..."
