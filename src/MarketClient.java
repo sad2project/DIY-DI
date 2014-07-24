@@ -5,10 +5,14 @@ import external.MarketService;
 
 public class MarketClient
 {
-	private static final MarketClient instance = new MarketClient();
+	private static MarketClient instance = null;
 
 	public static MarketClient getInstance()
 	{
+		if(instance == null)
+		{
+			instance = new MarketClient();
+		}
 		return instance;
 	}
 	
@@ -16,7 +20,15 @@ public class MarketClient
 	
 	private MarketClient()
 	{
-		cachedPrices = MarketService.fetchPrices();
+		this(MarketService.fetchPrices());
+	}
+	
+	/**
+	 * This one is provided so that tests can inject a cache to test against
+	 */
+	MarketClient(Map<String, BigDecimal> cachedPrices)
+	{
+		this.cachedPrices = cachedPrices;
 	}
 
 	public BigDecimal getPrice(String symbol)

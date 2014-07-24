@@ -1,9 +1,5 @@
-Pain Points to address in Step 4:
+Pain Points to address in Step 5:
 
-"We would have tested that class if the constructor didn't always throw an
-exception."
+"How do you create a fake HttpServletRequest?"
 
-"The test 'setUp' methods are hard to write because we have to fake so many
-objects in the environment"
-
-"How do you guarantee that the 'init' method gets called for your object?"
+"It's not work it to test servlet code."
