@@ -1,5 +1,4 @@
 import java.math.BigDecimal;
-import external.Account;
 
 
 public class Trade
@@ -25,16 +24,5 @@ public class Trade
 	public void setQuantity(BigDecimal quantity)
 	{
 		this.quantity = quantity;
-	}
-	
-	public void buy(Account customerAccount, BigDecimal commission)
-	{
-		MarketClient market = MarketClient.getInstance();
-		BigDecimal price = market.getPrice(symbol);
-		BigDecimal marketValue = price.multiply(quantity);
-		BigDecimal settlementAmount = marketValue.add(commission);
-		Account firmAccount = Account.getFirmAccount();
-		customerAccount.transferCash(settlementAmount, firmAccount);
-		firmAccount.transferSecurity(symbol, quantity, customerAccount);
 	}
 }

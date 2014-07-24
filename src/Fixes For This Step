@@ -1,0 +1,15 @@
+Step 2 Principle: Value Objects
++ Separate service objects from value objects
++ Value objects...
+  + hold state
+  + are easy to create in tests
++ Service objects...
+  + perform work
+  + are harder to fake in tests
+  
+Code changes: Move Trade Services
++ Many objects in the system are going to pass around Trade objects
++ Trades depend on market prices and accounts
++ Tests would be easier to write if those dependencies didn't need to be mocked
++ The "buy" method should be moved out
++ The resulting class in a simple value object

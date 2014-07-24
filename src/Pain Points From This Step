@@ -1,7 +1,8 @@
-Pain Points to address in Step 2:
+Pain Points to address in Step 3:
 
-"That code to create fake Trade objects is repeated in enough places that we 
-should put it in a testing library."
+"How do I mock a static method?"
 
-"The three - well, actually four - things that this object is responsible for 
-are..."
+"When I modify static variables in my tests, I sometimes start seeing 
+unpredictable failures."
+
+"Did I call all the setters I need to so I can use this object?"

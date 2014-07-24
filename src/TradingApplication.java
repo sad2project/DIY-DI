@@ -16,7 +16,7 @@ public class TradingApplication extends ApplicationWrapper
 		Trade trade = new Trade();
 		trade.setSymbol(symbol);
 		trade.setQuantity(quantity);
-		trade.buy(customerAccount, commission);
+		BookingService.buy(customerAccount, trade, commission);
 	}
 	
 }
