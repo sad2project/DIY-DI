@@ -1,15 +1,13 @@
-Step 4 Principle: Trivial Constructors
-+ Tests are forced to invoke constructors and static initializers and init methods
-+ Expensive initialization code thwarts unit tests
-+ All constructors should be trivial
-+ A constructor that does real work (such as opening a connection) should be 
-refactored so that it accepts an initialized resource (such as an opened
-connection) as a parameter 
+Step 5 Principle: Thin Harness
++ The entry point into your application is sometimes required to extend a third-
+party object, such as "HttpServlet", "ApplicationWrapper", or "Activity"
++ Business logic should be moved elsewhere easier to test
++ The entry point itself will only need to be covered by scenario tests, not unit
+tests
   
-Code changes: Lazy MarketClient Singleton
-+ Any use of MarketClient class triggers a static initializer, which calls the
-expensive "MarketService.fetchPrices()" method
-+ MarketClient should create its singleton lazily
-+ A constructor should be added for tests that avoids the expensive initialization
-entirely
-+ A backwards-compatible constructor can be added for product code
+Code changes: Simplify TradingApplication
++ The TradingApplication class extends an ApplicationWrapper
++ An ApplicationWrapper is probably difficult to construct in tests
++ All business logic should be moved elsewhere
++ The command-line argument parsing can be moved to a helper class that gets its
+own tests

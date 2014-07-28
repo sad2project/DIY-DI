@@ -1,5 +1,15 @@
-Pain Points to address in Step 5:
+Pain Points to address in Step 6:
 
-"How do you create a fake HttpServletRequest?"
+FINISH THE REFACTORING; BOOKINGSERVICE IS INCOMPLETE
++ Half the steps have been performed
++ It's possible to unit test the business logic now
++ Unfortunately, the tests are long and awkward
++ The remaining steps make testing simple
 
-"It's not work it to test servlet code."
+"Removing the hard-coded dependencies from my code always makes my constructors
+difficult to read because there are so many parameters"
+
+"In the real world, most classes contain at least some code that is really hard 
+to test"
+
+"The code coverage report always shows gaps that we can't do anything about"
