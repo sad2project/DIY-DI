@@ -24,7 +24,7 @@ public class TradingArgs
 		return new BigDecimal(args[2]);
 	}
 	
-	public BigDecimal getCommision()
+	public BigDecimal getCommission()
 	{
 		return new BigDecimal(args[3]);
 	}

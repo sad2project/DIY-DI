@@ -1,15 +1,8 @@
-Pain Points to address in Step 6:
+Pain Points to address in Step 7:
 
-FINISH THE REFACTORING; BOOKINGSERVICE IS INCOMPLETE
-+ Half the steps have been performed
-+ It's possible to unit test the business logic now
-+ Unfortunately, the tests are long and awkward
-+ The remaining steps make testing simple
+"Can a mock object return a mock that returns a mock?"
 
-"Removing the hard-coded dependencies from my code always makes my constructors
-difficult to read because there are so many parameters"
+"Can you add some comments to this test code so I can tell what's going on?"
 
-"In the real world, most classes contain at least some code that is really hard 
-to test"
-
-"The code coverage report always shows gaps that we can't do anything about"
+"If took me forever to refactor that class because of all the tests that needed
+to expect the new contract"

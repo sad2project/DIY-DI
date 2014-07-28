@@ -8,15 +8,15 @@ public class BookingService
 	private final Account firmAccount;
 	private final Account customerAccount;
 	private final Trade trade;
-	private final BigDecimal commision;
+	private final BigDecimal commission;
 	
-	BookingService(MarketClient market, Account firmAccount, Account customerAccount, Trade trade, BigDecimal commision)
+	BookingService(MarketClient market, Account firmAccount, Account customerAccount, Trade trade, BigDecimal commission)
 	{
 		this.market = market;
 		this.firmAccount = firmAccount;
 		this.customerAccount = customerAccount;
 		this.trade = trade;
-		this.commision = commision;
+		this.commission = commission;
 	}
 	
 	public BookingService(String[] args)
@@ -25,10 +25,10 @@ public class BookingService
 			  Account.getFirmAccount(), 
 			  Account.getCustomerAccount(new TradingArgs(args).getAccountKey()),
 			  new Trade(new TradingArgs(args).getSymbol(), new TradingArgs(args).getQuantity()),
-			  new TradingArgs(args).getCommision() );
+			  new TradingArgs(args).getCommission() );
 	}
 	
-	public void buy(Account customerAccount, Trade trade, BigDecimal commission)
+	public void buy()
 	{
 		BigDecimal price = market.getPrice(trade.getSymbol());
 		BigDecimal marketValue = price.multiply(trade.getQuantity());
