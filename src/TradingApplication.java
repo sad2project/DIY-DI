@@ -6,7 +6,9 @@ public class TradingApplication extends ApplicationWrapper
 	@Override
 	public void execute(String[] args)
 	{
-		TradingInjector.injectBookingService(args).buy();
+		ApplicationScope scope = new ApplicationScope(args);
+		TradingInjector.injectBookingService(scope)
+			.buy();
 	}
 	
 }

@@ -3,48 +3,53 @@ import external.Account;
 
 public class TradingInjector
 {
-	public static BookingService injectBookingService(String[] args)
+	public static BookingService injectBookingService(ApplicationScope appScope)
 	{
 		return new BookingService(
 						injectFirmAccount(),
-						injectCustomerAccount(args),
-						injectTrade(args),
-						injectSettlementAmount(args));
+						injectCustomerAccount(appScope),
+						injectTrade(appScope),
+						injectSettlementAmount(appScope));
 	}
 	
-	public static TradingArgs injectTradingArgs(String[] args)
+	public static TradingArgs injectTradingArgs(ApplicationScope appScope)
 	{
-		return new TradingArgs(args);
+		return new TradingArgs(injectArgs(appScope));
 	}
 	
-	public static String injectSymbol(String[] args)
+	public static String[] injectArgs(ApplicationScope appScope)
 	{
-		return injectTradingArgs(args).getSymbol();
+		return appScope.getArgs();
 	}
 	
-	public static BigDecimal injectQuantity(String[] args)
+	public static String injectSymbol(ApplicationScope appScope)
 	{
-		return injectTradingArgs(args).getQuantity();
+		return injectTradingArgs(appScope).getSymbol();
 	}
 	
-	public static BigDecimal injectCommission(String[] args)
+	public static BigDecimal injectQuantity(ApplicationScope appScope)
 	{
-		return injectTradingArgs(args).getCommission();
+		return injectTradingArgs(appScope).getQuantity();
 	}
 	
-	public static String injectAccountKey(String[] args)
+	public static BigDecimal injectCommission(ApplicationScope appScope)
 	{
-		return injectTradingArgs(args).getAccountKey();
+		return injectTradingArgs(appScope).getCommission();
 	}
 	
-	public static Trade injectTrade(String[] args)
+	public static String injectAccountKey(ApplicationScope appScope)
 	{
-		return new Trade(injectSymbol(args), injectQuantity(args));
+		return injectTradingArgs(appScope).getAccountKey();
 	}
 	
-	public static Account injectCustomerAccount(String[] args)
+	public static Trade injectTrade(ApplicationScope appScope)
 	{
-		return Account.getCustomerAccount(injectAccountKey(args));
+		return new Trade(injectSymbol(appScope), injectQuantity(appScope));
+	}
+	
+	public static Account injectCustomerAccount(ApplicationScope appScope)
+	{
+		return Account.getCustomerAccount(injectAccountKey(appScope));
 	}
 	
 	public static Account injectFirmAccount()
@@ -54,29 +59,29 @@ public class TradingInjector
 	
 	public static MarketClient injectMarketClient()
 	{
-		return MarketClient.getInstance();
+		return new MarketClient();
 	}
 	
-	public static BigDecimal injectSettlementAmount(String[] args)
+	public static BigDecimal injectSettlementAmount(ApplicationScope appScope)
 	{
-		return injectSettlementCalculator(args).getSettlementAmount();
+		return injectSettlementCalculator(appScope).getSettlementAmount();
 	}
 	
-	public static SettlementCalculator injectSettlementCalculator(String[] args)
+	public static SettlementCalculator injectSettlementCalculator(ApplicationScope appScope)
 	{
 		return new SettlementCalculator(
-							injectPriceProvider(args), 
-							injectQuantity(args),
-							injectCommission(args));
+							injectPriceProvider(appScope), 
+							injectQuantity(appScope),
+							injectCommission(appScope));
 	}
 	
-	public static BigDecimal injectPrice(String[] args)
+	public static BigDecimal injectPrice(ApplicationScope appScope)
 	{
-		return injectMarketClient().getPrice(injectSymbol(args));
+		return injectMarketClient().getPrice(injectSymbol(appScope));
 	}
 	
-	public static Provider<BigDecimal> injectPriceProvider(String[] args)
+	public static Provider<BigDecimal> injectPriceProvider(ApplicationScope appScope)
 	{
-		return () -> injectPrice(args);
+		return () -> injectPrice(appScope);
 	}
 }

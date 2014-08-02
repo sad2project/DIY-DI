@@ -1,19 +1,37 @@
-Step 7 Principle: Providers
-+ Sometimes it's necessary to keep a dependency on a factory
-  + Multiple instances are needed
-  + Lazy construction is desired
-+ The dependency should be made as simple as possible
-+ The "Provider" pattern can be tested without needing mock objects
+Step 7 Principle: Scopes
++ Most projects have a concept of scopes
+  + Application Scope
+  + Request Scope
++ An explicit scope object lends uniformly to the plumbing in the injection 
+helpers
++ Scopes can also hold "singletons" or other objects with the same lifetime as 
+the scope 
   
-Code changes: Provider Interface
-+ The Provider interface can be created once and used throughout the application
-+ P.S. this is exactly the same as Java's Supplier interface (but this was 
-written before Java 8, so we'll forgive that. Plus, we'll be adding the utility
-into the interface through static methods, which are now allowed on them.)
+Code changes: Use an ApplicationScope
++ The injection helpers all pass around a parameter for "String[] args"
++ If this variable type changed, or if a second variable were needed, every
+injection helper signature would be affected
++ Instead, the injection helpers should pass around an "ApplicationScope"
++ Changes can be encapsulated in the scope
 
-Providers Utility
-+ The Providers utility (which, due to static methods now being allowed in 
-interfaces, will actually be in the Provider interface) can be created once and
-used in all the tests
-+ Tests just need to invoke "Provider.of(value)" to create a Provider test 
-double 
+Create ApplicationScope
++ The ApplicationScope class is simple
++ It holds the String[] args that were being passed around
++ It can hold the MarketClient singleton, so that the singleton implementation
+doesn't need statics
++ It could hold any other objects that need to be cached for the lifetime of the
+application
+
+Anti-Patterns
++ Service locators and context objects tend to grow and grow, making tests 
+brittle
++ Scope objects are neither of thes
++ Scope objects  stay simple and decoupled, even when the application gets
+complicated
++ Scope objects and production objects don't even have a knowledge of each other;
+the injection helper is a go-between.
+
+Testable Example
++ After making these changes, everything is easy to test
++ Teams tend to write more tests and better tests when they're easy
++ Once introduced, these patterns are easy to follow

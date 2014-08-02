@@ -5,20 +5,9 @@ import external.MarketService;
 
 public class MarketClient
 {
-	private static MarketClient instance = null;
-
-	public static MarketClient getInstance()
-	{
-		if(instance == null)
-		{
-			instance = new MarketClient();
-		}
-		return instance;
-	}
-	
 	private final Map<String, BigDecimal> cachedPrices;
 	
-	private MarketClient()
+	public MarketClient()
 	{
 		this(MarketService.fetchPrices());
 	}
