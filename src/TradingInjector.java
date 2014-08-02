@@ -6,11 +6,10 @@ public class TradingInjector
 	public static BookingService injectBookingService(String[] args)
 	{
 		return new BookingService(
-						injectMarketClient(),
 						injectFirmAccount(),
 						injectCustomerAccount(args),
 						injectTrade(args),
-						injectCommission(args));
+						injectSettlementAmount(args));
 	}
 	
 	public static TradingArgs injectTradingArgs(String[] args)
@@ -56,5 +55,20 @@ public class TradingInjector
 	public static MarketClient injectMarketClient()
 	{
 		return MarketClient.getInstance();
+	}
+	
+	public static BigDecimal injectSettlementAmount(String[] args)
+	{
+		return injectSettlementCalculator(args).getSettlementAmount();
+	}
+	
+	public static SettlementCalculator injectSettlementCalculator(String[] args)
+	{
+		return new SettlementCalculator(injectPrice(args), injectQuantity(args), injectCommission(args));
+	}
+	
+	public static BigDecimal injectPrice(String[] args)
+	{
+		return injectMarketClient().getPrice(injectSymbol(args));
 	}
 }
