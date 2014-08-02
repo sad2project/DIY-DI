@@ -1,8 +1,9 @@
-Pain Points to address in Step 7:
+Pain Points to address in Step 9:
 
-"Can a mock object return a mock that returns a mock?"
+"I hate it when a change in one class propagates through all the package's 
+classes."
 
-"Can you add some comments to this test code so I can tell what's going on?"
+"I'll just add a static method here because I don't want to change the class's
+dependencies."
 
-"If took me forever to refactor that class because of all the tests that needed
-to expect the new contract"
+"That bug snuck in because I had to fix the plumbing in so many places."

@@ -1,13 +1,19 @@
-Step 7 Principle: Demeter
-+ The Law of Demeter says objects should avoid asking for dependencies that they
-don't need
-+ For example, instead of asking for a factory, ask for the object produced by
-the factory
-+ In practice, this is hard to follow unless the project uses injection helpers
+Step 7 Principle: Providers
++ Sometimes it's necessary to keep a dependency on a factory
+  + Multiple instances are needed
+  + Lazy construction is desired
++ The dependency should be made as simple as possible
++ The "Provider" pattern can be tested without needing mock objects
   
-Code changes: Simplify BookingService
-+ The BookingService should remove its dependency on the MarketClient and ask
-directly for the settlement amount instead.
-+ A new SettlementCalculator helper can calculate the settlement amount
-+ The SettlementCalculator also only needs a price, not the whole MarketClient
-+ The glue code is the only place that needs to reference the MarketClient
+Code changes: Provider Interface
++ The Provider interface can be created once and used throughout the application
++ P.S. this is exactly the same as Java's Supplier interface (but this was 
+written before Java 8, so we'll forgive that. Plus, we'll be adding the utility
+into the interface through static methods, which are now allowed on them.)
+
+Providers Utility
++ The Providers utility (which, due to static methods now being allowed in 
+interfaces, will actually be in the Provider interface) can be created once and
+used in all the tests
++ Tests just need to invoke "Provider.of(value)" to create a Provider test 
+double 

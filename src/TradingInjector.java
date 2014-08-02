@@ -64,11 +64,19 @@ public class TradingInjector
 	
 	public static SettlementCalculator injectSettlementCalculator(String[] args)
 	{
-		return new SettlementCalculator(injectPrice(args), injectQuantity(args), injectCommission(args));
+		return new SettlementCalculator(
+							injectPriceProvider(args), 
+							injectQuantity(args),
+							injectCommission(args));
 	}
 	
 	public static BigDecimal injectPrice(String[] args)
 	{
 		return injectMarketClient().getPrice(injectSymbol(args));
+	}
+	
+	public static Provider<BigDecimal> injectPriceProvider(String[] args)
+	{
+		return () -> injectPrice(args);
 	}
 }
